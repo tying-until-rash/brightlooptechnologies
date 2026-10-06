@@ -1,1 +1,2384 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- INSERT GOOGLE SEARCH CONSOLE VERIFICATION TAG HERE -->
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brightloop Technologies — Crafting next-gen mobile experiences from India.">
+    <meta name="theme-color" content="#08090d">
+
+    <title>Brightloop Technologies | Next-Gen Mobile Experiences</title>
+
+    <style>
+        /* =========================================================
+           DESIGN TOKENS
+        ========================================================= */
+        :root {
+            --bg: #08090d;
+            --bg-soft: #0d0f15;
+            --surface: rgba(255, 255, 255, 0.045);
+            --surface-hover: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #f5f7fb;
+            --text-soft: #a7adba;
+            --text-muted: #707785;
+
+            --primary: #7c5cff;
+            --primary-light: #a58cff;
+            --cyan: #37d7ff;
+
+            --gradient: linear-gradient(
+                135deg,
+                #7c5cff 0%,
+                #4f8cff 50%,
+                #37d7ff 100%
+            );
+
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+
+            --container: 1120px;
+
+            --shadow-glow:
+                0 0 80px rgba(124, 92, 255, 0.14);
+
+            --transition: 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(124, 92, 255, 0.14),
+                    transparent 38%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::selection {
+            background: rgba(124, 92, 255, 0.35);
+            color: #fff;
+        }
+
+
+        /* =========================================================
+           GLOBAL BACKGROUND EFFECTS
+        ========================================================= */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.018) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.018) 1px,
+                    transparent 1px
+                );
+
+            background-size: 60px 60px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 75%
+                );
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            top: 10%;
+            right: -300px;
+
+            border-radius: 50%;
+            background: rgba(55, 215, 255, 0.045);
+            filter: blur(100px);
+
+            pointer-events: none;
+            z-index: -1;
+        }
+
+
+        /* =========================================================
+           LAYOUT
+        ========================================================= */
+        .container {
+            width: min(
+                calc(100% - 40px),
+                var(--container)
+            );
+
+            margin-inline: auto;
+        }
+
+        section {
+            position: relative;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            border-bottom: 1px solid rgba(255,255,255,0.055);
+
+            background: rgba(8, 9, 13, 0.72);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .header-inner {
+            min-height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 1.05rem;
+            font-weight: 750;
+            letter-spacing: -0.025em;
+        }
+
+        .logo-mark {
+            width: 30px;
+            height: 30px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 9px;
+
+            background: var(--gradient);
+
+            box-shadow:
+                0 5px 24px rgba(124, 92, 255, 0.28);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-mark::after {
+            content: "";
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow:
+                7px 7px 0 rgba(255,255,255,0.45);
+        }
+
+        .header-link {
+            color: var(--text-soft);
+            font-size: 0.9rem;
+
+            transition:
+                color var(--transition),
+                transform var(--transition);
+        }
+
+        .header-link:hover {
+            color: white;
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+        .hero {
+            min-height: calc(100vh - 76px);
+            min-height: calc(100svh - 76px);
+
+            display: flex;
+            align-items: center;
+
+            padding: 100px 0 120px;
+
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 620px;
+            height: 620px;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -55%);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124, 92, 255, 0.13),
+                    rgba(55, 215, 255, 0.035) 40%,
+                    transparent 70%
+                );
+
+            filter: blur(5px);
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+
+            max-width: 850px;
+            margin-inline: auto;
+
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 12px;
+
+            margin-bottom: 26px;
+
+            border: 1px solid var(--border);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.035);
+
+            color: #c5cad5;
+
+            font-size: 0.78rem;
+            font-weight: 650;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+
+            animation: fadeInUp 700ms both;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--cyan);
+
+            box-shadow:
+                0 0 12px rgba(55,215,255,0.9);
+        }
+
+        .hero h1 {
+            max-width: 900px;
+            margin-inline: auto;
+
+            font-size: clamp(
+                3rem,
+                8vw,
+                6.6rem
+            );
+
+            line-height: 0.98;
+
+            letter-spacing: -0.065em;
+            font-weight: 800;
+
+            text-wrap: balance;
+
+            animation:
+                fadeInUp 800ms 80ms both;
+        }
+
+        .gradient-text {
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            margin: 30px auto 0;
+
+            color: var(--text-soft);
+
+            font-size: clamp(
+                1rem,
+                2vw,
+                1.15rem
+            );
+
+            line-height: 1.75;
+
+            text-wrap: balance;
+
+            animation:
+                fadeInUp 800ms 160ms both;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+
+            margin-top: 38px;
+
+            animation:
+                fadeInUp 800ms 240ms both;
+        }
+
+
+        /* =========================================================
+           BUTTON
+        ========================================================= */
+        .btn {
+            min-height: 50px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            padding: 0 22px;
+
+            border: 1px solid transparent;
+            border-radius: 999px;
+
+            font-size: 0.92rem;
+            font-weight: 700;
+
+            transition:
+                transform var(--transition),
+                box-shadow var(--transition),
+                background var(--transition),
+                border-color var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+
+            color: white;
+
+            box-shadow:
+                0 10px 35px rgba(124, 92, 255, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.025);
+
+            box-shadow:
+                0 15px 45px rgba(124, 92, 255, 0.38);
+        }
+
+        .btn-secondary {
+            border-color: var(--border);
+            background: rgba(255,255,255,0.035);
+            color: #e4e7ee;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.02);
+
+            background: var(--surface-hover);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .btn-arrow {
+            transition:
+                transform var(--transition);
+        }
+
+        .btn:hover .btn-arrow {
+            transform: translateX(4px);
+        }
+
+
+        /* =========================================================
+           SECTION COMMON
+        ========================================================= */
+        .section {
+            padding: 110px 0;
+        }
+
+        .section-heading {
+            max-width: 650px;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            margin-bottom: 13px;
+
+            color: var(--primary-light);
+
+            font-size: 0.78rem;
+            font-weight: 750;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: clamp(
+                2rem,
+                5vw,
+                3.5rem
+            );
+
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+        }
+
+        .section-description {
+            margin-top: 18px;
+
+            color: var(--text-soft);
+
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+        .about-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.1fr)
+                minmax(280px, 0.9fr);
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .about-copy {
+            color: var(--text-soft);
+
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        .about-copy p + p {
+            margin-top: 20px;
+        }
+
+        .about-card {
+            position: relative;
+
+            padding: 34px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.065),
+                    rgba(255,255,255,0.025)
+                );
+
+            box-shadow: var(--shadow-glow);
+
+            overflow: hidden;
+
+            transition:
+                transform var(--transition),
+                border-color var(--transition);
+        }
+
+        .about-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(124,92,255,0.28);
+        }
+
+        .about-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            top: -90px;
+            right: -70px;
+
+            border-radius: 50%;
+
+            background: rgba(124,92,255,0.15);
+            filter: blur(35px);
+        }
+
+        .about-card-icon {
+            width: 48px;
+            height: 48px;
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 24px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,92,255,0.2),
+                    rgba(55,215,255,0.1)
+                );
+
+            border: 1px solid rgba(124,92,255,0.18);
+
+            font-size: 1.3rem;
+        }
+
+        .about-card h3 {
+            font-size: 1.35rem;
+            letter-spacing: -0.025em;
+        }
+
+        .about-card p {
+            margin-top: 10px;
+
+            color: var(--text-soft);
+            font-size: 0.94rem;
+            line-height: 1.75;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+        .contact-section {
+            padding: 110px 0;
+        }
+
+        .contact-box {
+            position: relative;
+
+            padding: clamp(30px, 6vw, 65px);
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(55,215,255,0.08),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 15% 100%,
+                    rgba(124,92,255,0.11),
+                    transparent 30%
+                ),
+                rgba(255,255,255,0.035);
+
+            overflow: hidden;
+
+            text-align: center;
+        }
+
+        .contact-box::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            border-radius: inherit;
+
+            padding: 1px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,92,255,0.25),
+                    transparent 45%,
+                    rgba(55,215,255,0.14)
+                );
+
+            mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+
+            pointer-events: none;
+        }
+
+        .contact-box h2 {
+            font-size: clamp(
+                2rem,
+                5vw,
+                3.4rem
+            );
+
+            letter-spacing: -0.045em;
+            line-height: 1.05;
+        }
+
+        .contact-box p {
+            max-width: 560px;
+
+            margin: 17px auto 0;
+
+            color: var(--text-soft);
+        }
+
+        .email-link {
+            display: inline-flex;
+
+            margin-top: 27px;
+
+            padding: 13px 20px;
+
+            border: 1px solid var(--border);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.04);
+
+            color: #fff;
+
+            font-size: 0.95rem;
+            font-weight: 650;
+
+            transition:
+                transform var(--transition),
+                background var(--transition),
+                border-color var(--transition);
+        }
+
+        .email-link:hover {
+            transform: translateY(-3px);
+
+            background: rgba(124,92,255,0.1);
+            border-color: rgba(124,92,255,0.3);
+        }
+
+
+        /* =========================================================
+           PRIVACY POLICY
+        ========================================================= */
+        .privacy-section {
+            padding: 20px 0 110px;
+        }
+
+        .privacy-wrapper {
+            position: relative;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.045),
+                    rgba(255,255,255,0.018)
+                );
+
+            box-shadow:
+                0 20px 70px rgba(0,0,0,0.22);
+
+            overflow: hidden;
+        }
+
+        .privacy-header {
+            padding: 24px 28px;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            background: rgba(255,255,255,0.018);
+        }
+
+        .privacy-header h2 {
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+        }
+
+        .privacy-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            color: var(--text-muted);
+
+            font-size: 0.72rem;
+            font-weight: 650;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .privacy-status-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #555b68;
+        }
+
+        .privacy-content {
+            min-height: 180px;
+
+            padding: clamp(28px, 5vw, 55px);
+
+            color: var(--text-soft);
+
+            font-size: 0.96rem;
+            line-height: 1.85;
+        }
+
+        .privacy-content h1 {
+            margin-bottom: 8px;
+
+            color: var(--text);
+
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+        }
+
+        .privacy-content h1 + p {
+            margin-bottom: 34px;
+
+            color: var(--text-muted);
+
+            font-size: 0.82rem;
+        }
+
+        .privacy-content h2 {
+            margin-top: 54px;
+            margin-bottom: 18px;
+
+            color: var(--text);
+
+            font-size: clamp(1.45rem, 3vw, 1.9rem);
+            line-height: 1.2;
+            letter-spacing: -0.035em;
+
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .privacy-content h2::before {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+
+            width: 3px;
+
+            border-radius: 99px;
+
+            background: var(--gradient);
+        }
+
+        .privacy-content h3 {
+            margin-top: 34px;
+            margin-bottom: 13px;
+
+            color: #e9ecf3;
+
+            font-size: 1.12rem;
+            line-height: 1.35;
+            letter-spacing: -0.02em;
+        }
+
+        .privacy-content h4 {
+            margin-top: 26px;
+            margin-bottom: 9px;
+
+            color: #d7dbe5;
+
+            font-size: 0.98rem;
+            font-weight: 700;
+        }
+
+        .privacy-content p {
+            margin-bottom: 17px;
+        }
+
+        .privacy-content strong {
+            color: #e6e9f1;
+            font-weight: 700;
+        }
+
+        .privacy-content a {
+            color: var(--primary-light);
+
+            text-decoration:
+                underline;
+
+            text-decoration-color:
+                rgba(165,140,255,0.35);
+
+            text-underline-offset: 3px;
+
+            transition:
+                color var(--transition),
+                text-decoration-color var(--transition);
+        }
+
+        .privacy-content a:hover {
+            color: var(--cyan);
+
+            text-decoration-color:
+                rgba(55,215,255,0.5);
+        }
+
+        .privacy-content ul {
+            margin: 14px 0 22px;
+            padding-left: 22px;
+        }
+
+        .privacy-content li {
+            margin-bottom: 13px;
+            padding-left: 5px;
+        }
+
+        .privacy-content li::marker {
+            color: var(--primary-light);
+        }
+
+        .privacy-content li > ul {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .privacy-content li > p:last-child,
+        .privacy-content ul:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+        footer {
+            padding: 28px 0 35px;
+
+            border-top: 1px solid rgba(255,255,255,0.055);
+
+            color: var(--text-muted);
+
+            font-size: 0.8rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            color: #9ba1ad;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           ANIMATIONS
+        ========================================================= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 22px, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes floatingGlow {
+            0%,
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            50% {
+                transform: translate3d(0, -8px, 0);
+            }
+        }
+
+        .reveal {
+            animation:
+                fadeInUp 800ms both;
+        }
+
+        .hardware-accelerated {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE — TABLET
+        ========================================================= */
+        @media (max-width: 800px) {
+
+            .container {
+                width: min(
+                    calc(100% - 32px),
+                    var(--container)
+                );
+            }
+
+            .hero {
+                padding: 85px 0 100px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-card {
+                max-width: 600px;
+            }
+
+            .section,
+            .contact-section {
+                padding: 85px 0;
+            }
+
+            .privacy-section {
+                padding: 0 0 85px;
+            }
+        }
+
+
+        /* =========================================================
+           RESPONSIVE — MOBILE
+        ========================================================= */
+        @media (max-width: 560px) {
+
+            .container {
+                width: min(
+                    calc(100% - 28px),
+                    var(--container)
+                );
+            }
+
+            .site-header {
+                position: relative;
+            }
+
+            .header-inner {
+                min-height: 68px;
+            }
+
+            .logo {
+                font-size: 0.92rem;
+            }
+
+            .logo-mark {
+                width: 28px;
+                height: 28px;
+            }
+
+            .header-link {
+                font-size: 0.82rem;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 82px 0 90px;
+            }
+
+            .hero::before {
+                width: 400px;
+                height: 400px;
+            }
+
+            .hero h1 {
+                font-size: clamp(
+                    2.7rem,
+                    14vw,
+                    4.5rem
+                );
+            }
+
+            .hero-description {
+                margin-top: 24px;
+                font-size: 0.96rem;
+                line-height: 1.7;
+            }
+
+            .hero-actions {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section {
+                padding: 75px 0;
+            }
+
+            .section-heading {
+                margin-bottom: 35px;
+            }
+
+            .section-title {
+                font-size: 2.35rem;
+            }
+
+            .about-copy {
+                font-size: 0.98rem;
+                line-height: 1.8;
+            }
+
+            .about-card {
+                padding: 27px;
+                border-radius: 22px;
+            }
+
+            .contact-section {
+                padding: 75px 0;
+            }
+
+            .contact-box {
+                padding: 38px 22px;
+                border-radius: 22px;
+            }
+
+            .contact-box h2 {
+                font-size: 2.25rem;
+            }
+
+            .email-link {
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .privacy-section {
+                padding-bottom: 75px;
+            }
+
+            .privacy-header {
+                padding: 20px;
+            }
+
+            .privacy-content {
+                min-height: 150px;
+                padding: 24px 20px;
+
+                font-size: 0.92rem;
+                line-height: 1.8;
+            }
+
+            .privacy-content h1 {
+                font-size: 2.05rem;
+            }
+
+            .privacy-content h2 {
+                margin-top: 42px;
+                font-size: 1.45rem;
+            }
+
+            .privacy-content h3 {
+                margin-top: 28px;
+                font-size: 1.05rem;
+            }
+
+            .privacy-content ul {
+                padding-left: 20px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 7px;
+            }
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================= */
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+    <header class="site-header">
+        <div class="container header-inner">
+
+            <a href="#" class="logo" aria-label="Brightloop Technologies home">
+                <span class="logo-mark" aria-hidden="true"></span>
+                <span>Brightloop Technologies</span>
+            </a>
+
+            <a
+                href="mailto:support@brightlooptechnologies.com"
+                class="header-link"
+            >
+                Contact
+            </a>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+        <section class="hero">
+            <div class="container">
+
+                <div class="hero-content">
+
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        Mobile App Development · India
+                    </div>
+
+                    <h1>
+                        Crafting
+                        <span class="gradient-text">
+                            Next-Gen
+                        </span>
+                        Mobile Experiences
+                    </h1>
+
+                    <p class="hero-description">
+                        We design and build modern, reliable mobile
+                        applications that turn ambitious ideas into
+                        seamless digital experiences.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="mailto:support@brightlooptechnologies.com"
+                            class="btn btn-primary"
+                        >
+                            Start a Conversation
+                            <span class="btn-arrow" aria-hidden="true">
+                                →
+                            </span>
+                        </a>
+
+                        <a
+                            href="#about"
+                            class="btn btn-secondary"
+                        >
+                            Explore Brightloop
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+        <section
+            class="section"
+            id="about"
+            aria-labelledby="about-title"
+        >
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div>
+
+                        <div class="section-heading">
+
+                            <div class="section-label">
+                                About Us
+                            </div>
+
+                            <h2
+                                class="section-title"
+                                id="about-title"
+                            >
+                                Technology built around people.
+                            </h2>
+
+                        </div>
+
+                        <div class="about-copy">
+
+                            <p>
+                                Brightloop Technologies is a
+                                technology company based in India,
+                                focused on creating thoughtfully
+                                engineered mobile applications.
+                            </p>
+
+                            <p>
+                                From intuitive interfaces to
+                                dependable backend systems, we combine
+                                clean design with practical technology
+                                to build products that feel fast,
+                                polished, and effortless to use.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <aside class="about-card hardware-accelerated">
+
+                        <div
+                            class="about-card-icon"
+                            aria-hidden="true"
+                        >
+                            ✦
+                        </div>
+
+                        <h3>
+                            Ideas into experiences.
+                        </h3>
+
+                        <p>
+                            We focus on clarity, performance, usability,
+                            and scalable foundations so every product
+                            is built with its users in mind.
+                        </p>
+
+                    </aside>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+        ====================================================== -->
+        <section
+            class="contact-section"
+            id="contact"
+            aria-labelledby="contact-title"
+        >
+            <div class="container">
+
+                <div class="contact-box">
+
+                    <div class="section-label">
+                        Get in Touch
+                    </div>
+
+                    <h2 id="contact-title">
+                        Have an idea?
+                        <span class="gradient-text">
+                            Let's build it.
+                        </span>
+                    </h2>
+
+                    <p>
+                        Whether you have a new product idea or need
+                        support for an existing application, we'd love
+                        to hear from you.
+                    </p>
+
+                    <a
+                        href="mailto:support@brightlooptechnologies.com"
+                        class="email-link"
+                    >
+                        support@brightlooptechnologies.com
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             PRIVACY POLICY
+        ====================================================== -->
+        <section
+            class="privacy-section"
+            id="privacy"
+            aria-labelledby="privacy-title"
+        >
+            <div class="container">
+
+                <div class="privacy-wrapper">
+
+                    <div class="privacy-header">
+
+                        <h2 id="privacy-title">
+                            Privacy Policy
+                        </h2>
+
+                        <span class="privacy-status">
+                            <span
+                                class="privacy-status-dot"
+                                aria-hidden="true"
+                            ></span>
+                            Document
+                        </span>
+
+                    </div>
+
+                    <div class="privacy-content">
+
+                        <h1>Privacy Policy</h1>
+
+                        <p>Last updated: October 06, 2026</p>
+
+                        <p>
+                            This Privacy Policy describes Our policies
+                            and procedures on the collection, use and
+                            disclosure of Your information when You use
+                            the Service and tells You about Your privacy
+                            rights and how the law protects You.
+                        </p>
+
+                        <p>
+                            We use Your Personal Data to provide and
+                            improve the Service. We collect, use, and
+                            disclose Your information as described in
+                            this Privacy Policy and, where required by
+                            applicable law, only where We have a valid
+                            legal basis to do so, including Your consent
+                            (where consent is required). This Privacy
+                            Policy has been created with the help of the
+                            <a
+                                href="https://www.termsfeed.com/privacy-policy-generator/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Privacy Policy Generator</a>.
+                        </p>
+
+
+                        <h2>Interpretation and Definitions</h2>
+
+                        <h3>Interpretation</h3>
+
+                        <p>
+                            The words whose initial letters are
+                            capitalized have meanings defined under the
+                            following conditions. The following
+                            definitions shall have the same meaning
+                            regardless of whether they appear in
+                            singular or in plural.
+                        </p>
+
+                        <h3>Definitions</h3>
+
+                        <p>For the purposes of this Privacy Policy:</p>
+
+                        <ul>
+                            <li>
+                                <p>
+                                    <strong>Account</strong> means a
+                                    unique account created for You to
+                                    access Our Service or parts of Our
+                                    Service.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Affiliate</strong> means an
+                                    entity that controls, is controlled
+                                    by, or is under common control with
+                                    a party, where "control" means
+                                    ownership of 50% or more of the
+                                    shares, equity interest or other
+                                    securities entitled to vote for
+                                    election of directors or other
+                                    managing authority.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Company</strong> (referred
+                                    to as either "the Company", "We",
+                                    "Us" or "Our" in this Privacy Policy)
+                                    refers to Brightloop Technologies,
+                                    Perinthalmanna, Kerala, India.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Cookies</strong> are small
+                                    files that are placed on Your
+                                    computer, mobile device or any other
+                                    device by a website, containing the
+                                    details of Your browsing history on
+                                    that website, among its many uses.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Country/State</strong> refers
+                                    to: Kerala, India.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Device</strong> means any
+                                    device that can access the Service,
+                                    such as a computer, a cell phone or
+                                    a digital tablet.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Personal Data</strong> (or
+                                    "Personal Information") is any
+                                    information that relates to an
+                                    identified or identifiable
+                                    individual.
+                                </p>
+
+                                <p>
+                                    We use "Personal Data" and
+                                    "Personal Information" interchangeably
+                                    unless a law uses a specific term.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Service</strong> refers to
+                                    the Website.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Service Provider</strong>
+                                    means any natural or legal person who
+                                    processes the data on behalf of the
+                                    Company. It refers to third-party
+                                    companies or individuals employed by
+                                    the Company to facilitate the
+                                    Service, to provide the Service on
+                                    behalf of the Company, to perform
+                                    services related to the Service or
+                                    to assist the Company in analyzing
+                                    how the Service is used.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Usage Data</strong> refers
+                                    to data collected automatically,
+                                    either generated by the use of the
+                                    Service or from the Service
+                                    infrastructure itself (for example,
+                                    the duration of a page visit).
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>User</strong> means any
+                                    individual who accesses or uses the
+                                    Service.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>Website</strong> refers to
+                                    Brightloop Technologies, accessible
+                                    from
+                                    <a
+                                        href="https://brightlooptechnologies.github.io"
+                                        rel="external nofollow noopener"
+                                        target="_blank"
+                                    >https://brightlooptechnologies.github.io</a>.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>You</strong> means the
+                                    individual accessing or using the
+                                    Service, or the company, or other
+                                    legal entity on behalf of which such
+                                    individual is accessing or using the
+                                    Service, as applicable.
+                                </p>
+                            </li>
+                        </ul>
+
+
+                        <h2>Collecting and Using Your Personal Information</h2>
+
+                        <h3>Types of Data Collected</h3>
+
+                        <h4>Personal Data</h4>
+
+                        <p>
+                            While using Our Service, We may ask You to
+                            provide Us with certain personally
+                            identifiable information that can be used to
+                            contact or identify You. Personally
+                            identifiable information may include, but is
+                            not limited to:
+                        </p>
+
+                        <h4>Usage Data</h4>
+
+                        <p>
+                            Usage Data is collected automatically when
+                            using the Service.
+                        </p>
+
+                        <p>
+                            Usage Data may include information such as
+                            Your Device's Internet Protocol address
+                            (e.g. IP address), browser type, browser
+                            version, the pages of Our Service that You
+                            visit, the time and date of Your visit, the
+                            time spent on those pages, unique device
+                            identifiers and other diagnostic data.
+                        </p>
+
+                        <p>
+                            When You access the Service by or through a
+                            mobile device, We may collect certain
+                            information automatically, including, but
+                            not limited to, the type of mobile device
+                            You use, Your mobile device's unique ID, the
+                            IP address of Your mobile device, Your
+                            mobile operating system, the type of mobile
+                            Internet browser You use, unique device
+                            identifiers and other diagnostic data.
+                        </p>
+
+                        <p>
+                            We may also collect information that Your
+                            browser sends whenever You visit Our Service
+                            or when You access the Service by or through
+                            a mobile device.
+                        </p>
+
+                        <h4>Tracking Technologies and Cookies</h4>
+
+                        <p>
+                            We use tracking technologies (such as
+                            cookies) to track the activity and to improve
+                            Our Service. The technologies We use may
+                            include:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>Cookies or Browser Cookies.</strong>
+                                A cookie is a small file placed on Your
+                                Device. You can instruct Your browser to
+                                refuse all Cookies or to indicate when a
+                                Cookie is being sent. However, if You do
+                                not accept Cookies, You may not be able
+                                to use some parts of Our Service.
+                            </li>
+
+                            <li>
+                                <strong>Web Beacons.</strong>
+                                Certain sections of Our Service may
+                                contain small electronic files known as
+                                web beacons (also referred to as clear
+                                gifs, pixel tags, and single-pixel gifs)
+                                that permit the Company, for example, to
+                                count users who have visited those pages
+                                and for other related website statistics
+                                (for example, recording the popularity of
+                                a certain section and verifying system
+                                and server integrity).
+                            </li>
+                        </ul>
+
+                        <p>
+                            Cookies can be "Persistent" or "Session"
+                            Cookies. Persistent Cookies remain on Your
+                            personal computer or mobile device when You
+                            go offline, while Session Cookies are deleted
+                            as soon as You close Your web browser.
+                        </p>
+
+                        <p>
+                            Where required by law, We use non-essential
+                            cookies (that is, Cookies other than the
+                            Necessary / Essential Cookies described
+                            below) only with Your consent. You can
+                            withdraw or change Your consent at any time
+                            using Our cookie preferences tool (if
+                            available) or through Your browser/device
+                            settings. Withdrawing consent does not affect
+                            the lawfulness of processing based on consent
+                            before its withdrawal.
+                        </p>
+
+                        <p>
+                            We use both Session and Persistent Cookies
+                            for the purposes set out below:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <p>
+                                    <strong>
+                                        Necessary / Essential Cookies
+                                    </strong>
+                                </p>
+
+                                <p>Type: Session Cookies</p>
+
+                                <p>Administered by: Us</p>
+
+                                <p>
+                                    Purpose: These Cookies are essential
+                                    to provide You with services
+                                    available through the Website and to
+                                    enable You to use some of its
+                                    features. They help to authenticate
+                                    users and prevent fraudulent use of
+                                    user accounts. Without these Cookies,
+                                    the services that You have asked for
+                                    cannot be provided, and We only use
+                                    these Cookies to provide You with
+                                    those services.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>
+                                        Cookies Policy / Notice Acceptance
+                                        Cookies
+                                    </strong>
+                                </p>
+
+                                <p>Type: Persistent Cookies</p>
+
+                                <p>Administered by: Us</p>
+
+                                <p>
+                                    Purpose: These Cookies identify
+                                    whether users have accepted the use
+                                    of cookies on the Website and record
+                                    the consent choices You have made, so
+                                    that We can honor those choices on
+                                    future visits.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>
+                                        Functionality Cookies
+                                    </strong>
+                                </p>
+
+                                <p>Type: Persistent Cookies</p>
+
+                                <p>Administered by: Us</p>
+
+                                <p>
+                                    Purpose: These Cookies allow Us to
+                                    remember choices You make when You
+                                    use the Website, such as remembering
+                                    Your Account login details or
+                                    language preference. The purpose of
+                                    these Cookies is to provide You with
+                                    a more personal experience and to
+                                    avoid You having to re-enter Your
+                                    preferences every time You use the
+                                    Website.
+                                </p>
+                            </li>
+                        </ul>
+
+
+                        <h3>Use of Your Personal Data</h3>
+
+                        <p>
+                            The Company may use Personal Data for the
+                            following purposes:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <p>
+                                    <strong>
+                                        To provide and maintain Our Service
+                                    </strong>,
+                                    including to monitor the usage of
+                                    Our Service.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>To manage Your Account:</strong>
+                                    to manage Your registration as a user
+                                    of the Service. The Personal Data You
+                                    provide can give You access to
+                                    different functionalities of the
+                                    Service that are available to You as
+                                    a registered user.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>
+                                        For the performance of a contract:
+                                    </strong>
+                                    the development, compliance and
+                                    undertaking of the purchase contract
+                                    for the products, items or services
+                                    You have purchased or of any other
+                                    contract with Us through the Service.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>To contact You:</strong>
+                                    To contact You by email, telephone
+                                    calls, SMS, or other equivalent forms
+                                    of electronic communication, such as
+                                    a mobile application's push
+                                    notifications regarding updates or
+                                    informative communications related to
+                                    the functionalities, products or
+                                    contracted services, including the
+                                    security updates, when necessary or
+                                    reasonable for their implementation.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>To provide You</strong>
+                                    with news, special offers, and
+                                    general information about other
+                                    goods, services and events which We
+                                    offer that are similar to those that
+                                    You have already purchased or
+                                    inquired about. We send such marketing
+                                    communications only where permitted
+                                    by applicable law: where prior consent
+                                    is required (for example, under the
+                                    laws applicable in the EEA and the
+                                    UK), We will send them only with Your
+                                    consent; otherwise, We may send them
+                                    until You opt out. You may opt out or
+                                    withdraw Your consent at any time by
+                                    using the unsubscribe link in any
+                                    marketing email We send or by
+                                    contacting Us.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>To manage Your requests:</strong>
+                                    To attend and manage Your requests to
+                                    Us.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>For business transfers:</strong>
+                                    We may use Your Personal Data to
+                                    evaluate or conduct a merger,
+                                    divestiture, restructuring,
+                                    reorganization, dissolution, or other
+                                    sale or transfer of some or all of Our
+                                    assets, whether as a going concern or
+                                    as part of bankruptcy, liquidation,
+                                    or similar proceeding, in which
+                                    Personal Data held by Us about Our
+                                    Service users is among the assets
+                                    transferred.
+                                </p>
+                            </li>
+
+                            <li>
+                                <p>
+                                    <strong>For other purposes</strong>:
+                                    We may use Your information for other
+                                    purposes, such as data analysis,
+                                    identifying usage trends, determining
+                                    the effectiveness of Our promotional
+                                    campaigns, and evaluating and
+                                    improving Our Service, products,
+                                    services, marketing and Your
+                                    experience.
+                                </p>
+                            </li>
+                        </ul>
+
+                        <p>
+                            We may share Your Personal Data in the
+                            following situations:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>With Service Providers:</strong>
+                                We may share Your Personal Data with
+                                Service Providers to monitor and analyze
+                                the use of Our Service, and to contact
+                                You.
+                            </li>
+
+                            <li>
+                                <strong>For business transfers:</strong>
+                                We may share or transfer Your Personal
+                                Data in connection with, or during
+                                negotiations of, any merger, sale of
+                                Company assets, financing, or acquisition
+                                of all or a portion of Our business to
+                                another company.
+                            </li>
+
+                            <li>
+                                <strong>With Affiliates:</strong>
+                                We may share Your Personal Data with Our
+                                affiliates, in which case We will require
+                                those affiliates to honor this Privacy
+                                Policy. Affiliates include Our parent
+                                company and any other subsidiaries, joint
+                                venture partners or other companies that
+                                We control or that are under common
+                                control with Us.
+                            </li>
+
+                            <li>
+                                <strong>With other users:</strong>
+                                If Our Service offers public areas, when
+                                You share Personal Data or otherwise
+                                interact in the public areas with other
+                                users, such information may be viewed by
+                                all users and may be publicly distributed
+                                outside the Service.
+                            </li>
+
+                            <li>
+                                <strong>With Your consent</strong>:
+                                We may disclose Your Personal Data for any
+                                other purpose with Your consent.
+                            </li>
+                        </ul>
+
+
+                        <h3>Retention of Your Personal Data</h3>
+
+                        <p>
+                            The Company will retain Your Personal Data
+                            only for as long as is necessary for the
+                            purposes set out in this Privacy Policy. We
+                            will retain and use Your Personal Data to the
+                            extent necessary to comply with Our legal
+                            obligations (for example, if We are required
+                            to retain Your data to comply with applicable
+                            laws), resolve disputes, and enforce Our
+                            legal agreements and policies.
+                        </p>
+
+                        <p>
+                            Where possible, We apply shorter retention
+                            periods and/or reduce identifiability by
+                            deleting, aggregating, or anonymizing data.
+                            Unless otherwise stated, the retention
+                            periods below are maximum periods ("up to")
+                            and We may delete or anonymize data sooner
+                            when it is no longer needed for the relevant
+                            purpose. We apply different retention periods
+                            to different categories of Personal Data
+                            based on the purpose of processing and legal
+                            obligations:
+                        </p>
+
+                        <ul>
+                            <li>
+                                <p>Account Information</p>
+
+                                <ul>
+                                    <li>
+                                        User Accounts: retained for the
+                                        duration of Your Account
+                                        relationship plus up to 24 months
+                                        after account closure to handle
+                                        any post-termination issues or
+                                        resolve disputes.
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <p>Usage Data</p>
+
+                                <ul>
+                                    <li>
+                                        <p>
+                                            Website analytics data
+                                            (cookies, IP addresses,
+                                            device identifiers): up to 24
+                                            months from the date of
+                                            collection, which allows us to
+                                            analyze trends while respecting
+                                            privacy principles.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <p>
+                                            Server logs (IP addresses,
+                                            access times): up to 24 months
+                                            for security monitoring and
+                                            troubleshooting purposes.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p>
+                            Usage Data is retained in accordance with the
+                            retention periods described above, and may be
+                            retained longer only where necessary for
+                            security, fraud prevention, or legal
+                            compliance.
+                        </p>
+
+                        <p>
+                            We may retain Personal Data beyond the periods
+                            stated above for different reasons:
+                        </p>
+
+                        <ul>
+                            <li>
+                                Legal obligation: We are required by law
+                                to retain specific data (e.g., financial
+                                records for tax authorities).
+                            </li>
+
+                            <li>
+                                Legal claims: Data is necessary to
+                                establish, exercise, or defend legal
+                                claims.
+                            </li>
+
+                            <li>
+                                Your explicit request: You ask Us to
+                                retain specific information.
+                            </li>
+
+                            <li>
+                                Technical limitations: Data exists in
+                                backup systems that are scheduled for
+                                routine deletion.
+                            </li>
+                        </ul>
+
+                        <p>
+                            You may request information about how long We
+                            will retain Your Personal Data by contacting
+                            Us.
+                        </p>
+
+                        <p>
+                            When retention periods expire, We securely
+                            delete or anonymize Personal Data according
+                            to the following procedures:
+                        </p>
+
+                        <ul>
+                            <li>
+                                Deletion: Personal Data is removed from
+                                Our systems and no longer actively
+                                processed.
+                            </li>
+
+                            <li>
+                                Backup retention: Residual copies may
+                                remain in encrypted backups for a limited
+                                period consistent with Our backup
+                                retention schedule and are not restored
+                                except where necessary for security,
+                                disaster recovery, or legal compliance.
+                            </li>
+
+                            <li>
+                                Anonymization: In some cases, We convert
+                                Personal Data into anonymous statistical
+                                data that cannot be linked back to You.
+                                This anonymized data may be retained
+                                indefinitely for research and analytics.
+                            </li>
+                        </ul>
+
+
+                        <h3>Transfer of Your Personal Data</h3>
+
+                        <p>
+                            Your information, including Personal Data, is
+                            processed at the Company's operating offices
+                            and in any other places where the parties
+                            involved in the processing are located. This
+                            means that this information may be transferred
+                            to — and maintained on — computers located
+                            outside of Your state, province, country or
+                            other governmental jurisdiction where the
+                            data protection laws may differ from those of
+                            Your jurisdiction.
+                        </p>
+
+                        <p>
+                            Where required by applicable law, We will
+                            ensure that international transfers of Your
+                            Personal Data are subject to appropriate
+                            safeguards and, where relevant, supplementary
+                            measures. The Company will take all steps
+                            reasonably necessary to ensure that Your data
+                            is treated securely and in accordance with
+                            this Privacy Policy and no transfer of Your
+                            Personal Data will take place to an
+                            organization or a country unless there are
+                            adequate controls in place, including the
+                            security of Your data and other personal
+                            information.
+                        </p>
+
+
+                        <h3>Delete Your Personal Data</h3>
+
+                        <p>
+                            You have the right to delete or request that
+                            We assist in deleting the Personal Data that
+                            We have collected about You.
+                        </p>
+
+                        <p>
+                            Our Service may give You the ability to delete
+                            certain information about You from within the
+                            Service.
+                        </p>
+
+                        <p>
+                            You may update, amend, or delete Your
+                            information at any time by signing in to Your
+                            Account, if You have one, and visiting the
+                            account settings section that allows You to
+                            manage Your personal information. You may also
+                            contact Us to request access to, correct, or
+                            delete any Personal Data that You have
+                            provided to Us.
+                        </p>
+
+                        <p>
+                            Please note, however, that We may need to
+                            retain certain information when We have a
+                            legal obligation or lawful basis to do so.
+                        </p>
+
+
+                        <h3>Disclosure of Your Personal Data</h3>
+
+                        <h4>Business Transactions</h4>
+
+                        <p>
+                            If the Company is involved in a merger,
+                            acquisition or asset sale, Your Personal Data
+                            may be transferred. We will provide notice
+                            before Your Personal Data is transferred and
+                            becomes subject to a different Privacy Policy.
+                        </p>
+
+                        <h4>Law Enforcement</h4>
+
+                        <p>
+                            Under certain circumstances, the Company may
+                            disclose Your Personal Data if required to do
+                            so by law or in response to valid requests by
+                            public authorities (e.g. a court or a
+                            government agency).
+                        </p>
+
+                        <h4>Other Legal Requirements</h4>
+
+                        <p>
+                            The Company may disclose Your Personal Data
+                            in the good-faith belief that such action is
+                            necessary to:
+                        </p>
+
+                        <ul>
+                            <li>Comply with a legal obligation</li>
+                            <li>
+                                Protect and defend the rights or property
+                                of the Company
+                            </li>
+                            <li>
+                                Prevent or investigate possible
+                                wrongdoing in connection with the Service
+                            </li>
+                            <li>
+                                Protect the personal safety of Users of
+                                the Service or the public
+                            </li>
+                            <li>
+                                Protect against legal liability
+                            </li>
+                        </ul>
+
+
+                        <h3>Security of Your Personal Data</h3>
+
+                        <p>
+                            The security of Your Personal Data is
+                            important to Us, but remember that no method
+                            of transmission over the Internet, or method
+                            of electronic storage, is 100% secure. While
+                            We strive to use commercially reasonable means
+                            to protect Your Personal Data, We cannot
+                            guarantee its absolute security.
+                        </p>
+
+
+                        <h2>Children's and Minors' Privacy</h2>
+
+                        <p>
+                            The Service is not directed to, and We do not
+                            knowingly collect Personal Information from,
+                            anyone under the age of 16.
+                        </p>
+
+                        <p>
+                            If You are a parent or guardian and You believe
+                            Your child has provided Us with Personal
+                            Information, please contact Us. If We become
+                            aware that We have collected Personal
+                            Information from anyone under the age of 16,
+                            We will take steps to remove that information
+                            from Our servers as soon as reasonably
+                            possible.
+                        </p>
+
+                        <p>
+                            Some countries and states set a higher age at
+                            which an individual can consent to the
+                            processing of their own Personal Information.
+                            Where We rely on consent as a legal basis and
+                            the law applicable to a User sets an age
+                            higher than 16, We may require the consent of
+                            that User's parent or guardian before We
+                            collect and use their Personal Information.
+                        </p>
+
+
+                        <h2>Links to Other Websites</h2>
+
+                        <p>
+                            Our Service may contain links to other
+                            websites that are not operated by Us. If You
+                            click on a third-party link, You will be
+                            directed to that third party's site. We
+                            strongly advise You to review the Privacy
+                            Policy of every site You visit.
+                        </p>
+
+                        <p>
+                            We have no control over and assume no
+                            responsibility for the content, privacy
+                            policies or practices of any third-party
+                            sites or services.
+                        </p>
+
+
+                        <h2>Changes to this Privacy Policy</h2>
+
+                        <p>
+                            We may update Our Privacy Policy from time to
+                            time. We will notify You of any changes by
+                            posting the new Privacy Policy on this page.
+                        </p>
+
+                        <p>
+                            We will let You know via email and/or a
+                            prominent notice on Our Service, prior to the
+                            change becoming effective and update the
+                            "Last updated" date at the top of this Privacy
+                            Policy.
+                        </p>
+
+                        <p>
+                            You are advised to review this Privacy Policy
+                            periodically for any changes. Changes to this
+                            Privacy Policy are effective when they are
+                            posted on this page.
+                        </p>
+
+
+                        <h2>Contact Us</h2>
+
+                        <p>
+                            If You have any questions about this Privacy
+                            Policy, You can contact Us:
+                        </p>
+
+                        <ul>
+                            <li>
+                                By email:
+                                <a href="mailto:brightlooporg@gmail.com">
+                                    brightlooporg@gmail.com
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+    <footer>
+        <div class="container footer-inner">
+
+            <span class="footer-brand">
+                © 2026 Brightloop Technologies
+            </span>
+
+            <span>
+                Built in India · Built for the future.
+            </span>
+
+        </div>
+    </footer>
+
+</body>
+</html>
+```
